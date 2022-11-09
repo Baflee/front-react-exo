@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       fontFamily: {
         justicefest: ['JusticeFest', 'sans-serif'],
+        doodles: ['Doodles', 'sans-serif'],
       },
     },
   },

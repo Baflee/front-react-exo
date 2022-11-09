@@ -6,3 +6,8 @@
     font-family: "JusticeFest";
     src: url("../public/fonts/JUSTICEFEST.otf");
   }
+
+  @font-face {
+    font-family: "Doodles";
+    src: url("../public/fonts/Doodles.ttf");
+  }

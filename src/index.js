@@ -5,6 +5,7 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import Login from './Login'
 import SignUp from './SignUp'
+import Book from './Book'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+  },
+  {
+    path: '/:id',
+    element: <Book />,
   },
   {
     path: '/login',
