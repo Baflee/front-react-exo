@@ -28,7 +28,11 @@ function App() {
             return (
               <Link to={{ pathname: `/${book._id}` }}>
                 <div className="flex self-center items-center justify-center">
-                  <img src="/images/cadre.png" className={`object-contain`} />
+                  {book.images.length === 0 ? (
+                    <img src="/images/cadre.png" className={`object-contain`} />
+                  ) : (
+                    <img src={book.images[0]} className={`object-contain`} />
+                  )}
                   <div className="font-justicefest flex self-center items-center justify-center text-4xl grid grid-cols-1">
                     <p className="font-justicefest">{book.title}</p>
                     <p className="font-doodles">{book.author}</p>
