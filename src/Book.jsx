@@ -6,14 +6,14 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 function Book() {
   const [book, setBook] = useState(null);
   const [message, setMessage] = useState(null);
+  const [categories, setCategories] = useState(null);
   const navigate = useNavigate();
   const userStorage = JSON.parse(localStorage.getItem("user"));
   const params = useParams();
 
   function deleteBook() {
-    let data = {};
     const deleteBook = async () => {
-      data = await fetch("/api/books", {
+      const data = await fetch("/api/books", {
         method: "delete",
         mode: "cors",
         headers: new Headers({
@@ -26,7 +26,6 @@ function Book() {
       });
 
       const json = await data.json();
-      console.log(json);
 
       if (json.message === "Livre Supprimé") {
         navigate("/");
@@ -43,7 +42,14 @@ function Book() {
       setBook(json);
     };
 
+    const fetchCategories = async () => {
+      const data = await fetch("/api/categories");
+      const json = await data.json();
+      setCategories(json);
+    };
+
     fetchBook().catch(console.error);
+    fetchCategories().catch(console.error);
   }, []);
 
   return (
@@ -81,6 +87,15 @@ function Book() {
               <div className="font-doodles flex self-center items-center justify-center m-10">
                 Prix : {book.price} €
               </div>
+              {book.categories.length != 0
+                ? book.categories.map((bookcategory) => {
+                    categories.map((existingCategory) => {
+                      if (bookcategory === existingCategory._id) {
+                        <p className="font-doodles">{existingCategory.name}</p>;
+                      }
+                    });
+                  })
+                : ""}
             </div>
             <div className="flex self-center border-r border-r-black border-l border-l-black items-center justify-center text-4xl grid grid-cols-1 p-3.5">
               <p className="font-doodles">{book.description}</p>

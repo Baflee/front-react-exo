@@ -1,9 +1,8 @@
-import "./App.css";
 import Header from "./components/Header";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-function App() {
+function Home() {
   const [books, setBooks] = useState(null);
 
   React.useEffect(() => {
@@ -52,4 +51,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;

@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import App from './App'
+import Home from './Home'
 import reportWebVitals from './reportWebVitals'
 import Login from './Login'
 import SignUp from './SignUp'
@@ -13,7 +13,7 @@ import './index.css'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <Home />,
   },
   {
     path: '/:id',
