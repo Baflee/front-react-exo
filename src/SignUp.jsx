@@ -15,13 +15,9 @@ function SignUp() {
           onSubmit={async (values) => {
             await new Promise((resolve) => setTimeout(resolve, 500));
 
-            console.log(
-              "test 0 : " + JSON.stringify(values) + " " + values.email
-            );
             try {
               await fetch("api/users/signup", {
-                method: "post",
-                mode: "cors",
+                method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                   email: values.email,
@@ -30,7 +26,6 @@ function SignUp() {
               })
                 .then((response) => response.json())
                 .then(async (result) => {
-                  console.log("test : " + JSON.stringify(result));
                   if (result.message === "Compte créer !") {
                     navigate("/login");
                   } else if (result.message) {
@@ -44,7 +39,7 @@ function SignUp() {
             }
           }}
         >
-          <div className="flex self-center bg-logincadre bg-cover px-28 my-32 mx-10 py-24 items-center justify-center content-center grid grid-cols-1 gap-14">
+          <div className="flex self-center bg-logincadre bg-cover px-24 my-32 mx-10 py-24 items-center justify-center content-center grid grid-cols-1 gap-14">
             <Link to="/">
               <img src="/images/ReadmeMini.png" />
             </Link>
@@ -62,7 +57,7 @@ function SignUp() {
                 />
               </label>
               <label className="flex font-doodles text-2xl">
-                Password :
+                Mot de Passe :
                 <Field
                   name="password"
                   type="password"

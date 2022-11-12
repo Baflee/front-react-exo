@@ -15,14 +15,9 @@ function Login() {
           onSubmit={async (values) => {
             await new Promise((resolve) => setTimeout(resolve, 500));
 
-            console.log(
-              "test 0 : " + JSON.stringify(values) + " " + values.email
-            );
-
             try {
               await fetch("api/users/login", {
-                method: "post",
-                mode: "cors",
+                method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                   email: values.email,
@@ -31,9 +26,7 @@ function Login() {
               })
                 .then((response) => response.json())
                 .then((result) => {
-                  console.log("test : " + JSON.stringify(result));
                   if (result.message === "Compte connecté !") {
-                    console.log("test 5 : " + JSON.stringify(result.user));
                     localStorage.setItem(
                       "user",
                       JSON.stringify({
@@ -55,7 +48,7 @@ function Login() {
             }
           }}
         >
-          <div className="flex self-center bg-logincadre bg-cover px-28 my-32 mx-10 py-24 items-center justify-center content-center grid grid-cols-1 gap-14">
+          <div className="flex self-center bg-logincadre bg-cover px-24 my-32 mx-10 py-24 items-center justify-center content-center grid grid-cols-1 gap-14">
             <Link to="/">
               <img src="/images/ReadmeMini.png" />
             </Link>
@@ -73,7 +66,7 @@ function Login() {
                 />
               </label>
               <label className="flex font-doodles text-2xl">
-                Password :
+                Mot de Passe :
                 <Field
                   name="password"
                   type="password"
