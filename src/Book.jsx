@@ -36,21 +36,21 @@ function Book() {
   }
 
   React.useEffect(() => {
-    const fetchBook = async () => {
-      const data = await fetch("/api/books/" + params.id);
-      const json = await data.json();
-      setBook(json);
-    };
-
     const fetchCategories = async () => {
       const data = await fetch("/api/categories");
       const json = await data.json();
-      setCategories(json);
+      await setCategories(json);
     };
 
-    fetchBook().catch(console.error);
+    const fetchBook = async () => {
+      const data = await fetch("/api/books/" + params.id);
+      const json = await data.json();
+      await setBook(json);
+    };
+
     fetchCategories().catch(console.error);
-  }, []);
+    fetchBook().catch(console.error);
+  }, [params.id]);
 
   return (
     <div>
@@ -58,44 +58,67 @@ function Book() {
       {book ? (
         <div className="flex self-center items-center justify-center my-12 grid grid-cols-1">
           <div className="flex self-center items-center justify-center gaWp-24 grid grid-cols-2 mx-10">
-            <div className="font-justicefest flex self-center items-center justify-center text-6xl grid grid-cols-2">
-              <div className="flex self-center items-center justify-center">
-                {book.images.length === 0 ? (
-                  <img src="/images/cadre.png" className={`object-contain`} />
-                ) : (
-                  <img src={book.images[0]} className={`object-contain`} />
-                )}
+            <div className="font-justicefest flex self-center items-center justify-center grid grid-cols-1">
+              <div className="font-justicefest flex self-center items-center justify-center text-6xl grid grid-cols-2">
+                <div className="flex self-center items-center justify-center">
+                  {book.images.length === 0 ? (
+                    <img
+                      alt="Affichage basique du livre"
+                      src="/images/cadre.png"
+                      className={`object-contain`}
+                    />
+                  ) : (
+                    <img
+                      alt="Affichage donner dans la bd du livre"
+                      src={book.images[0]}
+                      className={`object-contain`}
+                    />
+                  )}
+                </div>
+                <div className="flex self-center items-center justify-center">
+                  <p className="font-justicefest">{book.title}</p>
+                </div>
+                <div className="font-doodles flex self-center items-center justify-center m-10">
+                  Auteur : {book.author}
+                </div>
+                <div className="font-doodles flex self-center items-center justify-center m-10">
+                  Editeur : {book.editor}
+                </div>
+                <div className="font-doodles flex self-center items-center justify-center m-10">
+                  Date : {book.publishingyear}
+                </div>
+                <div className="font-doodles flex self-center items-center justify-center m-10">
+                  Stock : {book.stock}
+                </div>
+                <div className="font-doodles flex self-center items-center justify-center m-10">
+                  Pages : {book.pagenumber}
+                </div>
+                <div className="font-doodles flex self-center items-center justify-center m-10">
+                  Prix : {book.price} €
+                </div>
               </div>
-              <div className="flex self-center items-center justify-center">
-                <p className="font-justicefest">{book.title}</p>
+              <div className="font-doodles flex self-center items-center justify-center text-4xl m-10">
+                {categories
+                  ? book.categories.map((bookcategory) => {
+                      return categories.forEach((category) => {
+                        if (bookcategory === category._id) {
+                          return (
+                            <Link
+                              to={{
+                                pathname: `/category/${category.name}`,
+                              }}
+                              key={category._id}
+                            >
+                              <div className="font-doodles border-b border-t border-solid border-black px-4 py-4 my-4 mx-4 rounded-md">
+                                {category.name}
+                              </div>
+                            </Link>
+                          );
+                        }
+                      });
+                    })
+                  : ""}
               </div>
-              <div className="font-doodles flex self-center items-center justify-center m-10">
-                Auteur : {book.author}
-              </div>
-              <div className="font-doodles flex self-center items-center justify-center m-10">
-                Editeur : {book.editor}
-              </div>
-              <div className="font-doodles flex self-center items-center justify-center m-10">
-                Date : {book.publishingyear}
-              </div>
-              <div className="font-doodles flex self-center items-center justify-center m-10">
-                Stock : {book.stock}
-              </div>
-              <div className="font-doodles flex self-center items-center justify-center m-10">
-                Pages : {book.pagenumber}
-              </div>
-              <div className="font-doodles flex self-center items-center justify-center m-10">
-                Prix : {book.price} €
-              </div>
-              {book.categories.length != 0
-                ? book.categories.map((bookcategory) => {
-                    categories.map((existingCategory) => {
-                      if (bookcategory === existingCategory._id) {
-                        <p className="font-doodles">{existingCategory.name}</p>;
-                      }
-                    });
-                  })
-                : ""}
             </div>
             <div className="flex self-center border-r border-r-black border-l border-l-black items-center justify-center text-4xl grid grid-cols-1 p-3.5">
               <p className="font-doodles">{book.description}</p>
@@ -175,7 +198,7 @@ function Book() {
               >
                 <div className="flex self-center bg-logincadre bg-cover px-32 my-32 mx-10 py-64 items-center justify-center content-center grid grid-cols-1 gap-14">
                   <Link to="/">
-                    <img src="/images/ReadmeMini.png" />
+                    <img alt="mini logo" src="/images/ReadmeMini.png" />
                   </Link>
                   <p className="font-justicefest text-6xl" type="submit">
                     Editer le Livre :

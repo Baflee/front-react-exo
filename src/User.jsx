@@ -123,7 +123,7 @@ function User() {
                 >
                   <div className="flex self-center bg-logincadre bg-cover px-32 my-32 mx-10 py-40 items-center justify-center content-center grid grid-cols-1 gap-14">
                     <Link to="/">
-                      <img src="/images/ReadmeMini.png" />
+                      <img alt="mini logo" src="/images/ReadmeMini.png" />
                     </Link>
                     <p className="font-justicefest text-4xl" type="submit">
                       Editer Profil :

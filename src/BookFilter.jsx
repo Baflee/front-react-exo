@@ -1,55 +1,32 @@
 import Header from "./components/Header";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-function Home() {
+function BookFilter() {
   const [books, setBooks] = useState(null);
-  const [categories, setCategories] = useState(null);
+  const params = useParams();
 
   React.useEffect(() => {
-    const fetchBooks = async () => {
-      const data = await fetch("/api/books");
+    const fetchCategoryBooks = async () => {
+      const data = await fetch("/api/books/category/" + params.name);
       const json = await data.json();
-      await setBooks(json);
+      setBooks(json);
     };
 
-    const fetchCategories = async () => {
-      const data = await fetch("/api/categories");
-      const json = await data.json();
-      await setCategories(json);
-    };
-
-    fetchBooks().catch(console.error);
-    fetchCategories().catch(console.error);
+    fetchCategoryBooks().catch(console.error);
   }, []);
 
   return (
     <div>
       <Header />
-      <div className="bg-white flex grid grid-cols-4 self-center items-center justify-center">
-        {categories ? (
-          categories.map((category) => {
-            return (
-              <Link
-                to={{
-                  pathname: `/category/${category.name}`,
-                }}
-                key={category._id}
-              >
-                <div className="font-doodles border-b border-t border-solid border-black px-2 py-2 mt-2 mx-4 text-4xl rounded-md">
-                  {category.name}
-                </div>
-              </Link>
-            );
-          })
-        ) : (
-          <p className="font-justicefest text-6xl py-3.5 flex self-center items-center justify-center">
-            Le Site est en cours de maintenance 😱
-          </p>
-        )}
-      </div>
       <p className="font-justicefest text-6xl py-3.5 flex self-center items-center justify-center">
-        Les Livres en ventes
+        Les Livres en ventes : {params.name}{" "}
+        <Link
+          to={{ pathname: `/` }}
+          className="font-doodles border-b border-t border-solid border-black px-4 py-4 my-4 mx-4 rounded-md"
+        >
+          Retour
+        </Link>
       </p>
       <div className="bg-white flex grid grid-cols-4 self-center items-center justify-center gap-20">
         {books ? (
@@ -81,7 +58,7 @@ function Home() {
           })
         ) : (
           <p className="font-justicefest text-6xl py-3.5 flex self-center items-center justify-center">
-            Le Site est en cours de maintenance 😱
+            Cette catégorie est vide ou n'existe tout simplement pas
           </p>
         )}
       </div>
@@ -89,4 +66,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default BookFilter;

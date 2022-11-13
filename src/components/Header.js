@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import React, { useState } from 'react'
+import React from 'react'
 
 function Header() {
   const user = JSON.parse(localStorage.getItem('user'))
@@ -15,7 +15,11 @@ function Header() {
         className={`bg-white flex self-center items-center justify-center py-3.5 gap-24`}
       >
         <Link to="/">
-          <img src="/images/Readme.png" className={`object-contain`} />
+          <img
+            alt="logo"
+            src="/images/Readme.png"
+            className={`object-contain`}
+          />
         </Link>
       </div>
       <nav

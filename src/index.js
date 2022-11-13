@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals'
 import Login from './Login'
 import SignUp from './SignUp'
 import Book from './Book'
+import BookFilter from './BookFilter'
 import User from './User'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: '/user/:id',
     element: <User />,
+  },
+  {
+    path: '/category/:name',
+    element: <BookFilter />,
   },
 ])
 
