@@ -50,7 +50,7 @@ function User() {
     };
 
     fetchUser().catch(console.error);
-  }, []);
+  }, [params.id, userStorage.token]);
 
   return (
     <div>
