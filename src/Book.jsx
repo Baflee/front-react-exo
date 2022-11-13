@@ -197,8 +197,6 @@ function Book() {
                   } catch (error) {
                     setMessage("test : " + error);
                   }
-                  console.log(values);
-                  console.log(message);
                 }}
               >
                 <div className="flex self-center bg-logincadre bg-cover px-32 my-32 mx-10 py-64 items-center justify-center content-center grid grid-cols-1 gap-14">

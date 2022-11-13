@@ -26,14 +26,12 @@ function AdminSection() {
     const name = event.target.name;
     const value = event.target.value;
     setBookForms((values) => ({ ...values, [name]: value }));
-    console.log(bookForms);
   };
 
   const handleChangeArray = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setBookForms((values) => ({ ...values, [name]: [value] }));
-    console.log(bookForms);
   };
 
   const handleSubmit = async (event) => {

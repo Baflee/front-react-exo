@@ -116,8 +116,6 @@ function User() {
                         } else {
                           setMessage(result.error);
                         }
-                        console.log(customBody);
-                        console.log(message);
                       });
                   }}
                 >
