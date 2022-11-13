@@ -5,6 +5,7 @@ import { Formik, Field, Form } from "formik";
 function AdminSection() {
   const [bookSection, setBookSection] = useState(false);
   const [categorySection, setCategorySection] = useState(false);
+  const [categories, setCategories] = useState(null);
   const [bookForms, setBookForms] = useState({
     images: ["/images/cadre.png"],
     title: null,
@@ -75,6 +76,16 @@ function AdminSection() {
       setBookSection(false);
     }
   };
+
+  React.useEffect(() => {
+    const fetchCategories = async () => {
+      const data = await fetch("/api/categories");
+      const json = await data.json();
+      await setCategories(json);
+    };
+
+    fetchCategories().catch(console.error);
+  }, []);
 
   return (
     <>
@@ -278,7 +289,7 @@ function AdminSection() {
                     }
                   }}
                 >
-                  <div className="flex self-center bg-logincadre bg-cover px-16 my-2 mx-10 py-12 items-center justify-center content-center grid grid-cols-1 gap-14">
+                  <div className="flex self-center bg-logincadre bg-cover px-20 my-2 mx-10 py-32 items-center justify-center content-center grid grid-cols-1 gap-14">
                     <Link to="/">
                       <img alt="mini logo" src="/images/ReadmeMini.png" />
                     </Link>
@@ -298,9 +309,68 @@ function AdminSection() {
                       <button className="font-doodles text-4xl" type="submit">
                         Créer
                       </button>
-                      <Link to="/">
-                        <p className="font-doodles text-4xl mt-3.5">Retour</p>
-                      </Link>
+                    </Form>
+                  </div>
+                </Formik>
+                <Formik
+                  initialValues={{ name: "" }}
+                  onSubmit={async (values) => {
+                    await new Promise((resolve) => setTimeout(resolve, 500));
+
+                    try {
+                      await fetch("api/categories", {
+                        method: "DELETE",
+                        headers: {
+                          "Content-Type": "application/json",
+                          Authorization: "Basic " + userStorage.token,
+                        },
+                        body: JSON.stringify({
+                          name: values.name,
+                        }),
+                      })
+                        .then((response) => response.json())
+                        .then((result) => {
+                          if (result.message) {
+                            setMessageCat(result.message);
+                          } else {
+                            setMessageCat(result.error);
+                          }
+                        });
+                    } catch (error) {
+                      setMessageCat(error);
+                    }
+                  }}
+                >
+                  <div className="flex self-center bg-logincadre bg-cover px-20 my-2 mx-10 py-32 items-center justify-center content-center grid grid-cols-1 gap-14">
+                    <Link to="/">
+                      <img alt="mini logo" src="/images/ReadmeMini.png" />
+                    </Link>
+                    <p className="font-justicefest text-4xl" type="submit">
+                      Suppresion d'une catégorie :
+                    </p>
+                    <Form>
+                      <label className="flex font-doodles text-2xl">
+                        Nom :
+                        <Field
+                          as="select"
+                          name="name"
+                          placeholder="Horreur"
+                          required="required"
+                        >
+                          {categories
+                            ? categories.map((category) => {
+                                return (
+                                  <option value={category.name}>
+                                    {category.name}
+                                  </option>
+                                );
+                              })
+                            : ""}
+                        </Field>
+                      </label>
+                      <button className="font-doodles text-4xl" type="submit">
+                        Supprimer
+                      </button>
                     </Form>
                   </div>
                 </Formik>
