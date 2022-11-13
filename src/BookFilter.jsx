@@ -29,7 +29,7 @@ function BookFilter() {
         </Link>
       </p>
       <div className="bg-white flex grid grid-cols-4 self-center items-center justify-center gap-20">
-        {books ? (
+        {books && books.length ? (
           books.map((book) => {
             return (
               <Link to={{ pathname: `/${book._id}` }} key={book._id}>

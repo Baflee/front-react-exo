@@ -75,7 +75,7 @@ function Login() {
                 />
               </label>
               <button className="font-doodles text-4xl" type="submit">
-                Submit
+                Envoyer
               </button>
               <Link to="/">
                 <p className="font-doodles text-4xl mt-3.5">Retour</p>

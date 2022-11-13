@@ -205,6 +205,10 @@ function Book() {
                   </p>
                   <Form>
                     <label className="flex font-doodles text-4xl">
+                      Images :
+                      <Field name="images" type="text" />
+                    </label>
+                    <label className="flex font-doodles text-4xl">
                       Titre :
                       <Field name="title" type="text" />
                     </label>
@@ -215,6 +219,10 @@ function Book() {
                     <label className="flex font-doodles text-4xl">
                       Editeur :
                       <Field name="editor" type="text" />
+                    </label>
+                    <label className="flex font-doodles text-4xl">
+                      Categories :
+                      <Field name="categories" type="text" />
                     </label>
                     <label className="flex font-doodles text-4xl">
                       Description :
@@ -248,7 +256,7 @@ function Book() {
                       className="font-doodles text-6xl otdds"
                       type="submit"
                     >
-                      Submit
+                      Envoyer
                     </button>
                   </Form>
                 </div>
