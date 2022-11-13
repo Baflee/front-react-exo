@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom'
-import React from 'react'
+import { Link } from "react-router-dom";
+import React from "react";
 
 function Header() {
-  const user = JSON.parse(localStorage.getItem('user'))
+  const user = JSON.parse(localStorage.getItem("user"));
 
   function clearStorage() {
-    localStorage.clear()
-    window.location.reload(false)
+    localStorage.clear();
+    window.location.reload(false);
   }
 
   return (
@@ -29,16 +29,6 @@ function Header() {
           <div
             className={`p-5 my-2 flex self-center items-center justify-center`}
           >
-            {user.isAdmin === true ? (
-              <Link
-                to="/admin"
-                className={`p-5 my-2 flex self-center items-center justify-center`}
-              >
-                Page Administrateur
-              </Link>
-            ) : (
-              ''
-            )}
             <Link
               to={{ pathname: `/user/${user._id}` }}
               className={`p-5 my-2 flex self-center items-center justify-center`}
@@ -70,7 +60,7 @@ function Header() {
         )}
       </nav>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;

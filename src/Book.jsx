@@ -1,4 +1,5 @@
 import Header from "./components/Header";
+import TagsFilter from "./components/TagsFilter";
 import React, { useState } from "react";
 import { Formik, Field, Form } from "formik";
 import { Link, useParams, useNavigate } from "react-router-dom";
@@ -55,6 +56,7 @@ function Book() {
   return (
     <div>
       <Header />
+      <TagsFilter />
       {book ? (
         <div className="flex self-center items-center justify-center my-12 grid grid-cols-1">
           <div className="flex self-center items-center justify-center gaWp-24 grid grid-cols-2 mx-10">
@@ -97,10 +99,13 @@ function Book() {
                   Prix : {book.price} €
                 </div>
               </div>
+              <div className="font-doodles flex self-center items-center justify-center text-6xl">
+                Tags :
+              </div>
               <div className="font-doodles flex self-center items-center justify-center text-4xl m-10">
                 {categories
                   ? book.categories.map((bookcategory) => {
-                      return categories.forEach((category) => {
+                      return categories.map((category) => {
                         if (bookcategory === category._id) {
                           return (
                             <Link
