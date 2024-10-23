@@ -97,8 +97,8 @@ function AdminSection() {
           <p className="font-justicefest text-6xl py-3.5 flex self-center items-center justify-center">
             {messageBook}
           </p>
-          <div className="flex self-center items-center justify-center grid grid-cols-2 gap-10">
-            <div className="flex self-center items-center justify-center">
+          <div className="flex grid items-center self-center justify-center grid-cols-2 gap-10">
+            <div className="flex items-center self-center justify-center">
               <p className="font-justicefest text-4xl py-3.5 flex self-center items-center justify-center">
                 Livre :
               </p>
@@ -109,7 +109,7 @@ function AdminSection() {
                 {bookSection ? "Fermer" : "Ouvrir"}
               </button>
             </div>
-            <div className="flex self-center items-center justify-center">
+            <div className="flex items-center self-center justify-center">
               <p className="font-justicefest text-4xl py-3.5 flex self-center items-center justify-center">
                 Catégorie :
               </p>
@@ -128,15 +128,15 @@ function AdminSection() {
                   <p className="font-justicefest text-4xl py-0.5 flex self-center items-center justify-center">
                     {messageBook}
                   </p>
-                  <div className="flex self-center bg-logincadre bg-cover px-24 mt-2 mb-15 mx-10 py-24 items-center justify-center content-center grid grid-cols-1 gap-14">
+                  <div className="flex grid items-center content-center self-center justify-center grid-cols-1 px-24 py-24 mx-10 mt-2 bg-cover bg-logincadre mb-15 gap-14">
                     <Link to="/">
                       <img alt="mini logo" src="/images/ReadmeMini.png" />
                     </Link>
-                    <p className="font-justicefest text-6xl" type="submit">
+                    <p className="text-6xl font-justicefest" type="submit">
                       Créer une page de livre :
                     </p>
                     <form onSubmit={handleSubmit}>
-                      <label className="flex font-doodles text-2xl">
+                      <label className="flex text-2xl font-doodles">
                         Images :
                         <input
                           name="images"
@@ -146,7 +146,7 @@ function AdminSection() {
                           onChange={handleChangeArray}
                         />
                       </label>
-                      <label className="flex font-doodles text-2xl">
+                      <label className="flex text-2xl font-doodles">
                         Titre :
                         <input
                           name="title"
@@ -155,7 +155,7 @@ function AdminSection() {
                           onChange={handleChange}
                         />
                       </label>
-                      <label className="flex font-doodles text-2xl">
+                      <label className="flex text-2xl font-doodles">
                         Auteur :
                         <input
                           name="author"
@@ -164,7 +164,7 @@ function AdminSection() {
                           onChange={handleChange}
                         />
                       </label>
-                      <label className="flex font-doodles text-2xl">
+                      <label className="flex text-2xl font-doodles">
                         Editeur :
                         <input
                           name="editor"
@@ -173,7 +173,7 @@ function AdminSection() {
                           onChange={handleChange}
                         />
                       </label>
-                      <label className="flex font-doodles text-2xl">
+                      <label className="flex text-2xl font-doodles">
                         Categories :
                         <input
                           name="categories"
@@ -183,7 +183,7 @@ function AdminSection() {
                           onChange={handleChangeArray}
                         />
                       </label>
-                      <label className="flex font-doodles text-2xl">
+                      <label className="flex text-2xl font-doodles">
                         Description :
                         <input
                           name="description"
@@ -192,7 +192,7 @@ function AdminSection() {
                           onChange={handleChange}
                         />
                       </label>
-                      <label className="flex font-doodles text-2xl">
+                      <label className="flex text-2xl font-doodles">
                         Stock :
                         <input
                           name="stock"
@@ -201,7 +201,7 @@ function AdminSection() {
                           onChange={handleChange}
                         />
                       </label>
-                      <label className="flex font-doodles text-2xl">
+                      <label className="flex text-2xl font-doodles">
                         Prix :
                         <input
                           name="price"
@@ -210,7 +210,7 @@ function AdminSection() {
                           onChange={handleChange}
                         />
                       </label>
-                      <label className="flex font-doodles text-2xl">
+                      <label className="flex text-2xl font-doodles">
                         isbn :
                         <input
                           name="isbn"
@@ -219,7 +219,7 @@ function AdminSection() {
                           onChange={handleChange}
                         />
                       </label>
-                      <label className="flex font-doodles text-2xl">
+                      <label className="flex text-2xl font-doodles">
                         Nombre de Page :
                         <input
                           name="pagenumber"
@@ -228,7 +228,7 @@ function AdminSection() {
                           onChange={handleChange}
                         />
                       </label>
-                      <label className="flex font-doodles text-4xl">
+                      <label className="flex text-4xl font-doodles">
                         Annee de Publication :
                         <input
                           name="publishingyear"
@@ -237,7 +237,7 @@ function AdminSection() {
                           onChange={handleChange}
                         />
                       </label>
-                      <label className="flex font-doodles text-4xl">
+                      <label className="flex text-4xl font-doodles">
                         Avis du Libraire :
                         <input
                           name="librarianreview"
@@ -246,7 +246,7 @@ function AdminSection() {
                         />
                       </label>
                       <button
-                        className="font-doodles text-6xl otdds"
+                        className="text-6xl font-doodles otdds"
                         type="submit"
                       >
                         Envoyer
@@ -296,15 +296,15 @@ function AdminSection() {
                         }
                       }}
                     >
-                      <div className="flex self-center bg-logincadre bg-cover px-20 my-2 mx-10 py-32 items-center justify-center content-center grid grid-cols-1 gap-14">
+                      <div className="flex grid items-center content-center self-center justify-center grid-cols-1 px-20 py-32 mx-10 my-2 bg-cover bg-logincadre gap-14">
                         <Link to="/">
                           <img alt="mini logo" src="/images/ReadmeMini.png" />
                         </Link>
-                        <p className="font-justicefest text-4xl" type="submit">
+                        <p className="text-4xl font-justicefest" type="submit">
                           Création de catégorie :
                         </p>
                         <Form>
-                          <label className="flex font-doodles text-2xl">
+                          <label className="flex text-2xl font-doodles">
                             Nom :
                             <Field
                               name="name"
@@ -314,7 +314,7 @@ function AdminSection() {
                             />
                           </label>
                           <button
-                            className="font-doodles text-4xl"
+                            className="text-4xl font-doodles"
                             type="submit"
                           >
                             Créer
@@ -353,15 +353,15 @@ function AdminSection() {
                         }
                       }}
                     >
-                      <div className="flex self-center bg-logincadre bg-cover px-20 my-2 mx-10 py-32 items-center justify-center content-center grid grid-cols-1 gap-14">
+                      <div className="flex grid items-center content-center self-center justify-center grid-cols-1 px-20 py-32 mx-10 my-2 bg-cover bg-logincadre gap-14">
                         <Link to="/">
                           <img alt="mini logo" src="/images/ReadmeMini.png" />
                         </Link>
-                        <p className="font-justicefest text-4xl" type="submit">
+                        <p className="text-4xl font-justicefest" type="submit">
                           Suppresion d'une catégorie :
                         </p>
                         <Form>
-                          <label className="flex font-doodles text-2xl">
+                          <label className="flex text-2xl font-doodles">
                             Nom :
                             <Field
                               as="select"
@@ -369,7 +369,7 @@ function AdminSection() {
                               placeholder="Horreur"
                               required="required"
                             >
-                              {categories
+                              {categories && categories.length > 0
                                 ? categories.map((category) => {
                                     return (
                                       <option value={category.name}>
@@ -381,7 +381,7 @@ function AdminSection() {
                             </Field>
                           </label>
                           <button
-                            className="font-doodles text-4xl"
+                            className="text-4xl font-doodles"
                             type="submit"
                           >
                             Supprimer

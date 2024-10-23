@@ -1,51 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
 function TagsFilter() {
-  const [categories, setCategories] = useState(null);
-  const params = useParams();
+  const [categories, setCategories] = useState([]);
+  const { name: selectedCategory } = useParams(); // Destructuring for clarity
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchCategories = async () => {
-      const data = await fetch("/api/categories");
-      const json = await data.json();
-      await setCategories(json);
+      try {
+        const response = await fetch("/api/categories");
+        const json = await response.json();
+        setCategories(json);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
     };
 
-    fetchCategories().catch(console.error);
+    fetchCategories();
   }, []);
 
   return (
     <>
-      <p className="font-justicefest text-6xl py-3.5 flex self-center items-center justify-center">
-        Filtre :
-      </p>
-      <div className="bg-white flex grid grid-cols-4 self-center items-center justify-center">
-        {categories
-          ? categories.map((category) => {
-              return (
-                <Link
-                  to={{
-                    pathname: `/category/${category.name}`,
-                  }}
-                  key={category._id}
+      {categories?.length > 0 && (
+        <>
+          <p className="font-justicefest text-6xl py-3.5 flex self-center items-center justify-center">
+            Filtre :
+          </p>
+          <div className="flex grid items-center self-center justify-center grid-cols-4 bg-white">
+            {categories.map((category) => (
+              <Link
+                key={category._id} // Key moved to the Link
+                to={`/category/${category.name}`}
+              >
+                <div
+                  className={`font-doodles border-b border-t border-solid border-black px-2 py-2 mt-2 mx-4 text-4xl rounded-md ${
+                    category.name === selectedCategory ? "bg-green-400" : "bg-white"
+                  }`}
                 >
-                  <div
-                    className={`font-doodles border-b border-t border-solid border-black px-2 py-2 mt-2 mx-4 text-4xl rounded-md ${
-                      category.name === params.name
-                        ? "bg-green-400"
-                        : "bg-white"
-                    }`}
-                  >
-                    {category.name}
-                  </div>
-                </Link>
-              );
-            })
-          : ""}
-      </div>
+                  {category.name}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </>
+      )}
     </>
   );
 }
 
 export default TagsFilter;
+

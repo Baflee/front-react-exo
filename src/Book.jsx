@@ -58,11 +58,11 @@ function Book() {
       <Header />
       <TagsFilter />
       {book ? (
-        <div className="flex self-center items-center justify-center my-12 grid grid-cols-1">
-          <div className="flex self-center items-center justify-center gaWp-24 grid grid-cols-2 mx-10">
-            <div className="font-justicefest flex self-center items-center justify-center grid grid-cols-1">
-              <div className="font-justicefest flex self-center items-center justify-center text-6xl grid grid-cols-2">
-                <div className="flex self-center items-center justify-center">
+        <div className="flex grid items-center self-center justify-center grid-cols-1 my-12">
+          <div className="flex grid items-center self-center justify-center grid-cols-2 mx-10 gaWp-24">
+            <div className="flex grid items-center self-center justify-center grid-cols-1 font-justicefest">
+              <div className="flex grid items-center self-center justify-center grid-cols-2 text-6xl font-justicefest">
+                <div className="flex items-center self-center justify-center">
                   {book.images.length === 0 ? (
                     <img
                       alt="Affichage basique du livre"
@@ -77,33 +77,33 @@ function Book() {
                     />
                   )}
                 </div>
-                <div className="flex self-center items-center justify-center">
+                <div className="flex items-center self-center justify-center">
                   <p className="font-justicefest">{book.title}</p>
                 </div>
-                <div className="font-doodles flex self-center items-center justify-center m-10">
+                <div className="flex items-center self-center justify-center m-10 font-doodles">
                   Auteur : {book.author}
                 </div>
-                <div className="font-doodles flex self-center items-center justify-center m-10">
+                <div className="flex items-center self-center justify-center m-10 font-doodles">
                   Editeur : {book.editor}
                 </div>
-                <div className="font-doodles flex self-center items-center justify-center m-10">
+                <div className="flex items-center self-center justify-center m-10 font-doodles">
                   Date : {book.publishingyear}
                 </div>
-                <div className="font-doodles flex self-center items-center justify-center m-10">
+                <div className="flex items-center self-center justify-center m-10 font-doodles">
                   Stock : {book.stock}
                 </div>
-                <div className="font-doodles flex self-center items-center justify-center m-10">
+                <div className="flex items-center self-center justify-center m-10 font-doodles">
                   Pages : {book.pagenumber}
                 </div>
-                <div className="font-doodles flex self-center items-center justify-center m-10">
+                <div className="flex items-center self-center justify-center m-10 font-doodles">
                   Prix : {book.price} €
                 </div>
               </div>
-              <div className="font-doodles flex self-center items-center justify-center text-6xl">
+              <div className="flex items-center self-center justify-center text-6xl font-doodles">
                 Tags :
               </div>
-              <div className="font-doodles flex self-center items-center justify-center text-4xl m-10">
-                {categories
+              <div className="flex items-center self-center justify-center m-10 text-4xl font-doodles">
+                {categories && categories.length > 0
                   ? book.categories.map((bookcategory) => {
                       return categories.map((category) => {
                         if (bookcategory === category._id) {
@@ -114,7 +114,7 @@ function Book() {
                               }}
                               key={category._id}
                             >
-                              <div className="font-doodles border-b border-t border-solid border-black px-4 py-4 my-4 mx-4 rounded-md">
+                              <div className="px-4 py-4 mx-4 my-4 border-t border-b border-black border-solid rounded-md font-doodles">
                                 {category.name}
                               </div>
                             </Link>
@@ -127,12 +127,12 @@ function Book() {
             </div>
             <div className="flex self-center border-r border-r-black border-l border-l-black items-center justify-center text-4xl grid grid-cols-1 p-3.5">
               <p className="font-doodles">{book.description}</p>
-              <p className="font-justicefest my-10">
+              <p className="my-10 font-justicefest">
                 Revue des bibliothécaires :
               </p>
               <p className="font-doodles">{book.librarianreview}</p>
               <Link to={{ pathname: `/` }}>
-                <div className="font-justicefest mt-10 text-6xl">Retour</div>
+                <div className="mt-10 text-6xl font-justicefest">Retour</div>
               </Link>
             </div>
           </div>
@@ -141,10 +141,10 @@ function Book() {
               <p className="font-justicefest text-4xl py-0.5 flex self-center items-center justify-center">
                 {message}
               </p>
-              <div className="font-doodles flex self-center items-center justify-center grid grid-cols-2">
+              <div className="flex grid items-center self-center justify-center grid-cols-2 font-doodles">
                 <button
                   onClick={() => deleteBook()}
-                  className="bg-buttoncadre bg-cover font-doodles flex self-center items-center justify-center text-3xl mx-72 mb-20 py-28"
+                  className="flex items-center self-center justify-center mb-20 text-3xl bg-cover bg-buttoncadre font-doodles mx-72 py-28"
                 >
                   Supprimer le Livre ?
                 </button>
@@ -203,64 +203,64 @@ function Book() {
                     }
                   }}
                 >
-                  <div className="flex self-center bg-logincadre bg-cover px-32 my-32 mx-10 py-64 items-center justify-center content-center grid grid-cols-1 gap-14">
+                  <div className="flex grid items-center content-center self-center justify-center grid-cols-1 px-32 py-64 mx-10 my-32 bg-cover bg-logincadre gap-14">
                     <Link to="/">
                       <img alt="mini logo" src="/images/ReadmeMini.png" />
                     </Link>
-                    <p className="font-justicefest text-6xl" type="submit">
+                    <p className="text-6xl font-justicefest" type="submit">
                       Editer le Livre :
                     </p>
                     <Form>
-                      <label className="flex font-doodles text-4xl">
+                      <label className="flex text-4xl font-doodles">
                         Images :
                         <Field name="images" type="text" />
                       </label>
-                      <label className="flex font-doodles text-4xl">
+                      <label className="flex text-4xl font-doodles">
                         Titre :
                         <Field name="title" type="text" />
                       </label>
-                      <label className="flex font-doodles text-4xl">
+                      <label className="flex text-4xl font-doodles">
                         Auteur :
                         <Field name="author" type="text" />
                       </label>
-                      <label className="flex font-doodles text-4xl">
+                      <label className="flex text-4xl font-doodles">
                         Editeur :
                         <Field name="editor" type="text" />
                       </label>
-                      <label className="flex font-doodles text-4xl">
+                      <label className="flex text-4xl font-doodles">
                         Categories :
                         <Field name="categories" type="text" />
                       </label>
-                      <label className="flex font-doodles text-4xl">
+                      <label className="flex text-4xl font-doodles">
                         Description :
                         <Field name="description" type="text" />
                       </label>
-                      <label className="flex font-doodles text-4xl">
+                      <label className="flex text-4xl font-doodles">
                         Stock :
                         <Field name="stock" type="number" />
                       </label>
-                      <label className="flex font-doodles text-4xl">
+                      <label className="flex text-4xl font-doodles">
                         Prix :
                         <Field name="price" type="number" />
                       </label>
-                      <label className="flex font-doodles text-4xl">
+                      <label className="flex text-4xl font-doodles">
                         isbn :
                         <Field name="isbn" type="text" />
                       </label>
-                      <label className="flex font-doodles text-4xl">
+                      <label className="flex text-4xl font-doodles">
                         Nombre de Page :
                         <Field name="pagenumber" type="number" />
                       </label>
-                      <label className="flex font-doodles text-4xl">
+                      <label className="flex text-4xl font-doodles">
                         Annee de Publication :
                         <Field name="publishingyear" type="number" />
                       </label>
-                      <label className="flex font-doodles text-4xl">
+                      <label className="flex text-4xl font-doodles">
                         Avis du Libraire :
                         <Field name="librarianreview" type="text" />
                       </label>
                       <button
-                        className="font-doodles text-6xl otdds"
+                        className="text-6xl font-doodles otdds"
                         type="submit"
                       >
                         Envoyer
@@ -275,7 +275,7 @@ function Book() {
           )}
         </div>
       ) : (
-        <div className="font-justicefest flex self-center items-center justify-center text-8xl">
+        <div className="flex items-center self-center justify-center font-justicefest text-8xl">
           Livre Introuvable
         </div>
       )}
