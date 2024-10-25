@@ -1,4 +1,4 @@
-import Header from "./components/Header";
+import Header from "../components/Header";
 import { Formik, Field, Form } from "formik";
 import React, { useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";

@@ -1,66 +1,106 @@
 import { Link } from "react-router-dom";
 import React from "react";
+import { Menu, X } from "lucide-react";
 
-function Header() {
+export default function Header() {
   const user = JSON.parse(localStorage.getItem("user"));
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   function clearStorage() {
     localStorage.clear();
-    window.location.reload(false);
+    window.location.reload();
   }
 
   return (
-    <header>
-      <div
-        className={`bg-white flex self-center items-center justify-center py-3.5 gap-24`}
-      >
-        <Link to="/">
-          <img
-            alt="logo"
-            src="/images/Readme.png"
-            className={`object-contain`}
-          />
-        </Link>
+    <header className="relative bg-white">
+      <div className="absolute inset-x-0 top-0 h-2">
+        <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 2">
+          <path d="M0 2 C 20 0, 50 2, 100 1 L 100 0 L 0 0 Z" fill="black" />
+        </svg>
       </div>
-      <nav
-        className={`font-justicefest bg-white border-b-8 border-t-8 text-xl sm:text-6xl border-b-black border-t-black flex self-center items-center justify-center py-3.5 gap-2 sm:gap-24`}
-      >
-        {user ? (
-          <div
-            className={`p-5 my-2 flex self-center items-center justify-center`}
+      <div className="absolute inset-x-0 bottom-0 h-2">
+        <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 2">
+          <path d="M0 1 C 30 2, 70 0, 100 1 L 100 2 L 0 2 Z" fill="black" />
+        </svg>
+      </div>
+      <div className="container relative px-4 py-6 mx-auto">
+        <div className="flex items-center justify-between">
+          <Link to="/" className="flex items-center">
+            <div className="relative">
+              <img
+                alt="logo"
+                src="/images/Readme.png"
+                className="relative z-10 object-contain h-20 sm:h-28 filter contrast-200"
+              />
+              <svg className="absolute inset-0 w-full h-full -z-10" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M10,10 Q30,5 50,10 T90,10 L95,90 Q70,95 50,90 T5,90 Z" fill="none" stroke="black" strokeWidth="4" vectorEffect="non-scaling-stroke" />
+              </svg>
+            </div>
+          </Link>
+          <nav className="items-center hidden gap-6 md:flex">
+            <NavLinks user={user} clearStorage={clearStorage} />
+          </nav>
+          <button
+            className="relative z-10 md:hidden"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            <Link
-              to={{ pathname: `/user/${user._id}` }}
-              className={`p-5 my-2 flex self-center items-center justify-center`}
-            >
-              Profile
-            </Link>
-            <button
-              onClick={() => clearStorage()}
-              className={`p-5 my-2 flex self-center items-center justify-center`}
-            >
-              Deconnexion
-            </button>
-          </div>
-        ) : (
-          <div className={`flex self-center items-center justify-center`}>
-            <Link
-              to="/signup"
-              className={`p-5 my-2 flex self-center items-center justify-center`}
-            >
-              Inscription
-            </Link>
-            <Link
-              to="/login"
-              className={`p-5 my-2 flex self-center items-center justify-center`}
-            >
-              Connexion
-            </Link>
-          </div>
-        )}
-      </nav>
+            {isMenuOpen ? (
+              <X className="w-10 h-10 text-black" />
+            ) : (
+              <Menu className="w-10 h-10 text-black" />
+            )}
+          </button>
+        </div>
+      </div>
+      {isMenuOpen && (
+        <div className="relative border-t-2 border-black md:hidden">
+          <svg className="absolute inset-x-0 top-0 h-2" preserveAspectRatio="none" viewBox="0 0 100 2">
+            <path d="M0 1 C 20 0, 60 2, 100 1" fill="none" stroke="black" strokeWidth="0.5" vectorEffect="non-scaling-stroke" />
+          </svg>
+          <nav className="flex flex-col items-center gap-4 py-4">
+            <NavLinks user={user} clearStorage={clearStorage} />
+          </nav>
+          <svg className="absolute inset-x-0 bottom-0 h-2" preserveAspectRatio="none" viewBox="0 0 100 2">
+            <path d="M0 1 C 40 2, 80 0, 100 1" fill="none" stroke="black" strokeWidth="0.5" vectorEffect="non-scaling-stroke" />
+          </svg>
+        </div>
+      )}
     </header>
   );
 }
 
-export default Header;
+function NavLinks({ user, clearStorage }) {
+  return (
+    <>
+      <NavLink to="/bookinator">Bookinator</NavLink>
+      {user ? (
+        <>
+          <NavLink to={`/user/${user._id}`}>Profile</NavLink>
+          <button onClick={clearStorage} className="nav-link">
+            Deconnexion
+          </button>
+        </>
+      ) : (
+        <>
+          <NavLink to="/signup">Inscription</NavLink>
+          <NavLink to="/login">Connexion</NavLink>
+        </>
+      )}
+    </>
+  );
+}
+
+function NavLink({ to, children }) {
+  return (
+    <Link
+      to={to}
+      className="relative px-6 py-3 text-xl font-bold tracking-wider text-white uppercase transition-all font-doodles group"
+    >
+      <span className="relative z-10">{children}</span>
+      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path className="transition-all duration-300 ease-in-out" d="M10,10 Q30,5 50,10 T90,10 L95,90 Q70,95 50,90 T5,90 Z" fill="white" stroke="black" strokeWidth="4" vectorEffect="non-scaling-stroke" />
+        <path className="transition-all duration-300 ease-in-out group-hover:translate-x-1 group-hover:translate-y-1" d="M10,10 Q30,5 50,10 T90,10 L95,90 Q70,95 50,90 T5,90 Z" fill="black" strokeWidth="0" />
+      </svg>
+    </Link>
+  );
+}

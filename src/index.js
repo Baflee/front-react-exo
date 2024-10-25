@@ -1,20 +1,25 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import Home from './Home'
+import Home from './pages/Home'
 import reportWebVitals from './reportWebVitals'
-import Login from './Login'
-import SignUp from './SignUp'
-import Book from './Book'
-import BookFilter from './BookFilter'
-import User from './User'
+import Login from './pages/Login'
+import SignUp from './pages/SignUp'
+import Book from './pages/Book'
+import BookFilter from './pages/BookFilter'
+import User from './pages/User'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
+import Bookinator from './pages/Bookinator'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Home />,
+  },
+  {
+    path: '/bookinator',
+    element: <Bookinator />,
   },
   {
     path: '/:id',

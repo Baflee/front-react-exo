@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 function TagsFilter() {
   const [categories, setCategories] = useState([]);
-  const { name: selectedCategory } = useParams(); // Destructuring for clarity
+  const { name: selectedCategory } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -12,34 +13,41 @@ function TagsFilter() {
         const json = await response.json();
         setCategories(json);
       } catch (error) {
-        console.error("Error fetching categories:", error);
+        console.error("Erreur lors de la récupération des catégories :", error);
       }
     };
 
     fetchCategories();
   }, []);
 
+  const handleCategoryClick = (categoryName) => {
+    if (categoryName === selectedCategory) {
+      navigate("/"); // Navigate to home if the category is already selected
+    } else {
+      navigate(`/category/${categoryName}`);
+    }
+  };
+
   return (
     <>
       {categories?.length > 0 && (
         <>
-          <p className="font-justicefest text-6xl py-3.5 flex self-center items-center justify-center">
-            Filtre :
+          <p className="py-6 text-6xl text-center text-black font-justicefest">
+            Filtrer par Catégorie :
           </p>
-          <div className="flex grid items-center self-center justify-center grid-cols-4 bg-white">
+          <div className="grid grid-cols-2 gap-4 px-6 py-6 bg-white rounded-lg shadow-none sm:grid-cols-4">
             {categories.map((category) => (
-              <Link
-                key={category._id} // Key moved to the Link
-                to={`/category/${category.name}`}
+              <div
+                key={category._id}
+                onClick={() => handleCategoryClick(category.name)}
+                className={`cursor-pointer font-doodles text-2xl sm:text-3xl text-center px-4 py-3 rounded-lg border-4 border-black transition-transform duration-300 ease-in-out transform hover:scale-105 ${
+                  category.name === selectedCategory
+                    ? "bg-gray-300 text-black border-gray-500"
+                    : "bg-white text-black"
+                }`}
               >
-                <div
-                  className={`font-doodles border-b border-t border-solid border-black px-2 py-2 mt-2 mx-4 text-4xl rounded-md ${
-                    category.name === selectedCategory ? "bg-green-400" : "bg-white"
-                  }`}
-                >
-                  {category.name}
-                </div>
-              </Link>
+                {category.name}
+              </div>
             ))}
           </div>
         </>
@@ -49,4 +57,3 @@ function TagsFilter() {
 }
 
 export default TagsFilter;
-
