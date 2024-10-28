@@ -35,15 +35,15 @@ function TagsFilter() {
           <p className="py-6 text-6xl text-center text-black font-justicefest">
             Filtrer par Catégorie :
           </p>
-          <div className="grid grid-cols-2 gap-4 px-6 py-6 bg-white rounded-lg shadow-none sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 px-4 py-4 mx-12 bg-white rounded-lg shadow-none sm:grid-cols-4">
             {categories.map((category) => (
               <div
                 key={category._id}
                 onClick={() => handleCategoryClick(category.name)}
-                className={`cursor-pointer font-doodles text-2xl sm:text-3xl text-center px-4 py-3 rounded-lg border-4 border-black transition-transform duration-300 ease-in-out transform hover:scale-105 ${
+                className={`cursor-pointer sm:text-3xl text-black text-center px-4 py-3 border-b border-t border-solid border-black rounded-md transition-transform duration-300 ease-in-out transform hover:scale-105 ${
                   category.name === selectedCategory
-                    ? "bg-gray-300 text-black border-gray-500"
-                    : "bg-white text-black"
+                    ? "font-justicefest"
+                    : "font-doodles"
                 }`}
               >
                 {category.name}

@@ -1,14 +1,44 @@
-  export async function fetchBook(id) {
-    try {
-      const data = await fetch(`/api/books/${id}`);
-      const json = await data.json();
-      return json
-    } catch (error) {
-      console.error("Failed to fetch the book:", error);
+export async function fetchBook(id) {
+  try {
+    const response = await fetch(`/api/books/${id}`);
+    if (!response.ok) {
+      throw new Error(response.statusText || "Failed to fetch the book");
     }
-  };
-  
-  export async function createBook(bookData, token) {
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching book:", error.message || error);
+    return null;
+  }
+}
+
+export async function fetchBooks() {
+  try {
+    const response = await fetch("/api/books");
+    if (!response.ok) {
+      throw new Error(response.statusText || "Error fetching books");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching books:", error.message || error);
+    return [];
+  }
+}
+
+export async function fetchCategoryBooks(categoryName) {
+  try {
+    const response = await fetch(`/api/books/category/${categoryName}`);
+    if (!response.ok) {
+      throw new Error(response.statusText || "Error fetching books by category");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching books by category:", error.message || error);
+    return [];
+  }
+}
+
+export async function createBook(bookData, token) {
+  try {
     const response = await fetch("/api/books", {
       method: "POST",
       headers: {
@@ -17,11 +47,19 @@
       },
       body: JSON.stringify(bookData),
     });
-    return response.json();
+    if (!response.ok) {
+      throw new Error(response.statusText || "Error creating book");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error creating book:", error.message || error);
+    return null;
   }
+}
 
-  export async function updateBook(bookData, token) {
-    const response = await fetch(`/api/books/${bookData.id}`, {
+export async function updateBook(bookData, token) {
+  try {
+    const response = await fetch(`/api/books/`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -29,25 +67,33 @@
       },
       body: JSON.stringify(bookData),
     });
-    return response.json();
-  }
-
-  const deleteBook = async () => {
-    try {
-      const data = await fetch("/api/books", {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Basic " + userStorage.token,
-        },
-        body: JSON.stringify({ _id: params.id }),
-      });
-      const json = await data.json();
-      if (json.message === "Livre Supprimé") {
-        navigate("/");
-      }
-    } catch (error) {
-      console.error("Failed to delete the book:", error);
+    if (!response.ok) {
+      throw new Error(response.statusText || "Error updating book");
     }
-  };
-  
+    return await response.json();
+  } catch (error) {
+    console.error("Error updating book:", error.message || error);
+    return null;
+  }
+}
+
+
+export async function deleteBook(id, token) {
+  try {
+    const response = await fetch(`/api/books`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Basic ${token}`,
+      },
+      body: JSON.stringify({ _id: id }),
+    });
+    if (!response.ok) {
+      throw new Error(response.statusText || "Error deleting book");
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Error deleting book:", error.message || error);
+    return null;
+  }
+}

@@ -4,22 +4,23 @@ import Header from "../components/Header";
 import AdminSection from "../components/AdminSection";
 import TagsFilter from "../components/TagsFilter";
 import { BookOpen } from "lucide-react";
+import { fetchBooks } from "../services/bookService";
+import { BookCard } from "../components/book/BookCard";
 
 export default function Home() {
   const [books, setBooks] = useState(null);
 
   useEffect(() => {
-    const fetchBooks = async () => {
+    const fetchBooksData = async () => {
       try {
-        const response = await fetch("/api/books");
-        const json = await response.json();
-        setBooks(json);
+        const books = await fetchBooks();
+        setBooks(books);
       } catch (error) {
-        console.error("Error fetching books:", error);
+        console.error("Failed to fetch books:", error);
       }
     };
 
-    fetchBooks();
+    fetchBooksData();
   }, []);
 
   return (
@@ -54,36 +55,5 @@ export default function Home() {
         )}
       </main>
     </div>
-  );
-}
-
-function BookCard({ book }) {
-  return (
-    <Link to={`/${book._id}`} className="block group">
-      <div className="relative p-4 transition-transform transform group-hover:scale-105">
-        <div className="relative z-10">
-          <div className="mb-4 aspect-w-3 aspect-h-4">
-            {book.images.length === 0 ? (
-              <img
-                alt="Affichage basique du livre"
-                src="/images/cadre.png"
-                className="object-cover w-full h-full"
-              />
-            ) : (
-              <img
-                alt="Affichage donné dans la BD du livre"
-                src={book.images[0]}
-                className="object-cover w-full h-full"
-              />
-            )}
-          </div>
-          <div className="text-center">
-            <h3 className="mb-1 text-xl font-comic line-clamp-2">{book.title}</h3>
-            <p className="mb-1 text-lg text-gray-600 font-comic">{book.author}</p>
-            <p className="text-sm text-gray-500 font-comic">{book.publishingyear}</p>
-          </div>
-        </div>
-      </div>
-    </Link>
   );
 }

@@ -1,6 +1,11 @@
   export async function fetchCategories() {
-    const response = await fetch("/api/categories");
-    return response.json();
+    try {
+      const response = await fetch("/api/categories");
+      return response.json();
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+      return []
+    }
   }
   
   export async function createCategory(name, token) {

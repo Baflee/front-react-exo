@@ -17,7 +17,7 @@ function Bookinator() {
     setError(null);
 
     try {
-      const response = await fetch("/api/bookinator", {
+      const response = await fetch("/api/books/bookinator", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,11 +55,11 @@ function Bookinator() {
               value={input}
               onChange={handleInputChange}
               placeholder="Décrivez une histoire ou entrez une catégorie..."
-              className="w-full p-3 mb-4 text-xl font-semibold placeholder-gray-500 bg-gray-100 border-2 border-black rounded-lg focus:ring-2 focus:ring-gray-400"
+              className="w-full p-3 mb-4 text-xl font-semibold placeholder-gray-500 bg-gray-100 border-2 border-black rounded-lg font-doodles focus:ring-2 focus:ring-gray-400"
             />
             <button
               type="submit"
-              className="px-6 py-2 text-2xl text-black transition-transform duration-300 transform border-4 border-black rounded-full hover:scale-105"
+              className="px-6 py-2 text-2xl text-black transition-transform duration-300 transform border-4 border-black rounded-full font-doodles hover:scale-105"
               disabled={loading}
             >
               {loading ? "Chargement..." : "Obtenir des suggestions"}

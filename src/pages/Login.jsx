@@ -1,94 +1,82 @@
-import { Formik, Field, Form } from "formik";
+import React, { useState, useEffect } from "react";
+import { Formik, Form } from "formik";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { ComicButton, FormField } from "../components/generic/Form";
+import { loginUser } from "../services/userService";
 
-function Login() {
-  const [message, setMessage] = useState("");
+export default function Login() {
+  const [message, setMessage] = useState(null);
+  const [messageStyle, setMessageStyle] = useState("");
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
 
+  useEffect(() => {
+    // Redirect to the homepage if the user is already logged in
+    if (user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
+
+  const handleLogin = async (values) => {
+    const result = await loginUser(values);
+
+    if (result.success) {
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          _id: result.user._id,
+          email: result.user.email,
+          token: result.user.token,
+          isAdmin: result.user.isAdmin,
+        })
+      );
+      setMessage(result.message);
+      setMessageStyle("text-green-500");
+
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    } else {
+      setMessage(result.message);
+      setMessageStyle("text-red-500");
+    }
+  };
+
+  // Show a loading message or spinner if desired while checking login status
+  if (user) {
+    return null; // This ensures nothing is rendered while the redirect is occurring.
+  }
+
   return (
-    <div className="flex items-center content-center self-center justify-center">
-      {!user ? (
-        <Formik
-          initialValues={{ email: "", password: "" }}
-          onSubmit={async (values) => {
-            await new Promise((resolve) => setTimeout(resolve, 500));
-
-            try {
-              const response = await fetch("/api/users/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  email: values.email,
-                  password: values.password,
-                }),
-              });
-
-              const result = await response.json();
-
-              if (response.ok) {
-                // Login successful
-                localStorage.setItem(
-                  "user",
-                  JSON.stringify({
-                    _id: result.user._id,
-                    email: result.user.email,
-                    token: result.user.token,
-                    isAdmin: result.user.isAdmin,
-                  })
-                );
-                navigate("/");
-              } else {
-                // Handle server error or invalid credentials
-                setMessage(result.error || "Login failed. Please try again.");
-              }
-            } catch (error) {
-              setMessage("An error occurred. Please try again later.");
-            }
-          }}
-        >
-          <div className="flex grid items-center content-center self-center justify-center grid-cols-1 px-24 py-24 mx-10 my-32 bg-cover bg-logincadre gap-14">
+    <div className="flex items-center justify-center min-h-screen">
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        onSubmit={handleLogin}
+      >
+        {({ isSubmitting }) => (
+          <div className="p-8 transform bg-white border-4 border-black rounded-lg shadow-comic">
             <Link to="/">
-              <img alt="mini logo" src="/images/ReadmeMini.png" />
+              <img alt="mini logo" src="/images/ReadmeMini.png" className="mx-auto mb-6" />
             </Link>
-            <p className="text-4xl font-justicefest" type="submit">
-              Connexion :
-            </p>
-            <Form>
-              <label className="flex text-2xl font-doodles">
-                Email :
-                <Field
-                  name="email"
-                  type="email"
-                  placeholder="youremail@example.com"
-                  required="required"
-                />
-              </label>
-              <label className="flex text-2xl font-doodles">
-                Mot de Passe :
-                <Field
-                  name="password"
-                  type="password"
-                  placeholder="eraymendo"
-                  required="required"
-                />
-              </label>
-              <button className="text-4xl font-doodles" type="submit">
-                Envoyer
-              </button>
-              <Link to="/">
-                <p className="font-doodles text-4xl mt-3.5">Retour</p>
+            <p className="mb-6 text-4xl text-center font-doodles">Connexion :</p>
+            <Form className="grid gap-4 font-doodles">
+              <FormField name="email" label="Email" type="email" />
+              <FormField name="password" label="Mot de Passe" type="password" />
+              <ComicButton type="submit" disabled={isSubmitting} className="w-full">
+                {isSubmitting ? "Envoi en cours..." : "Envoyer"}
+              </ComicButton>
+              <Link to="/" className="mt-4 text-center text-blue-500 hover:underline">
+                <p className="font-doodles">Retour</p>
               </Link>
             </Form>
+            {message && (
+              <p className={`mt-4 text-center font-justicefest text-xl ${messageStyle}`}>
+                {message}
+              </p>
+            )}
           </div>
-        </Formik>
-      ) : (
-        <div></div>
-      )}
-      <div className="font-doodles text-4xl mt-3.5">{message}</div>
+        )}
+      </Formik>
     </div>
   );
 }
-
-export default Login;

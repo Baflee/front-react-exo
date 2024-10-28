@@ -11,11 +11,16 @@ import User from './pages/User'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import Bookinator from './pages/Bookinator'
+import Achievements from './pages/Achievements'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Home />,
+  },
+  {
+    path: '/achievements',
+    element: <Achievements />,
   },
   {
     path: '/bookinator',
