@@ -186,8 +186,9 @@ function Achievements() {
           },
           body: JSON.stringify({ input: "Hey Mate" })
         });
-        const isBookinatorResolved = bookinatorResponse.status === 201 | 200;
-
+        
+        const isBookinatorResolved = bookinatorResponse.ok;
+        
         const searchResponse = await fetch("/api/books/search", {
           method: "POST",
           headers: {
@@ -196,10 +197,11 @@ function Achievements() {
           },
           body: JSON.stringify({ input: "Hey Mate" })
         });
-        const isSearchResolved = searchResponse.status === 201 | 200;
-
+        
+        const isSearchResolved = searchResponse.ok;
+        
         const checkBook = await fetch(`/api/books/67190aab88bde3197ac30020`);
-        const canUserCheckIt = checkBook.status === 401;
+        const canUserCheckIt = checkBook.ok;        
 
 
         const updatedTickets = tickets.map((ticket) => {
@@ -219,7 +221,7 @@ function Achievements() {
               const hasDuplicates = uniqueBooks.size !== books.length;
               return { ...ticket, resolved: !hasDuplicates ? "resolved" : "pending" };
             case 16:
-              return { ...ticket, resolved: !canUserCheckIt ? "resolved" : "pending" };
+              return { ...ticket, resolved: canUserCheckIt ? "resolved" : "pending" };
             case 10:
               return { ...ticket, resolved: isSearchResolved ? "resolved" : "pending" };
             case 13:
