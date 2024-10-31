@@ -10,80 +10,137 @@ function Achievements() {
       id: 1, 
       title: "Demande non résolue",
       description: "Do you sell this book? I was looking through the catalog but couldn’t find a way to buy it. Is it possible to purchase directly from your site?", 
+      image: "",
       category: "L1", 
       email: "sophie.b@example.com", 
+      status: "show", 
       resolved: "not detecting" 
     },
     { 
       id: 2, 
       title: "Requête sur le catalogue",
       description: "How can I search for books by a specific author? It’s not very clear where to do that, and I’m struggling to find the books I want.", 
+      image: "",
       category: "L1", 
       email: "claire.l@example.com", 
+      status: "show", 
       resolved: "not detecting" 
     },
     { 
       id: 3, 
       title: "Ouli... quoi ?",
-      description: "Salut, j'ai vu une catégorie qui s'appelle 'Oulipo'. À quoi ça correspond exactement ? Est-ce que c’est une erreur ou quelque chose en test ?", 
+      description: "Salut, j'ai vu une catégorie qui s'appelle 'Oulipo'. À quoi ça correspond exactement ?", 
+      image: "",
       category: "L1", 
       email: "michael.t@example.com", 
+      status: "show", 
       resolved: "not detecting" 
     },
     { 
       id: 4, 
       title: "Une Histoire Mythique",
       description: "Bonjour, la catégorie 'Mythe' semble avoir disparu du site. Est-ce que c’est un bug ou elle a été supprimée ?", 
+      image: "",
       category: "L2", 
       email: "claire.l@example.com", 
+      status: "show", 
       resolved: "pending" 
     },
     { 
       id: 6, 
       title: "Test Test 1 2",
-      description: "Hey, just wanted to let you know that I found a 'Test' category. Is that supposed to be there?", 
+      description: "Hey, just wanted to let you know that I found a 'Test' category.", 
+      image: "",
       category: "L2", 
       email: "michael.t@example.com", 
+      status: "show", 
       resolved: "pending" 
     },
     { 
       id: 7, 
       title: "Doublons de livres",
       description: "Je crois qu'il y a des doublons dans la liste des livres. J'ai vu le même livre apparaître plusieurs fois.", 
+      image: "",
       category: "L2", 
-      email: "camille.v@example.com", 
-      resolved: "pending" 
-    },
-    { 
-      id: 12, 
-      title: "Ajout Digitale",
-      description: "Hi, I’m trying to add a new book to my showcase, but it doesn’t seem to work. No errors, just nothing happens.", 
-      category: "L3", 
-      email: "eray@mendo.ai", 
+      email: "camille.v@example.com",
+      status: "show", 
       resolved: "pending" 
     },
     { 
       id: 16, 
-      title: "J'aimerai Lire !",
-      description: "Every time I try to view the details of a book, I keep getting a 500 error.", 
+      title: "Book Not Found",
+      description: "Every time I try to view the details of a book.",
+      image: "",
       category: "L3", 
       email: "peter.w@example.com", 
+      status: "show", 
       resolved: "pending" 
     },
     { 
       id: 14, 
       title: "Plus Disponible Mais on a toujours du stock",
-      description: "Impossible d'ajouter un livre. Pouvez-vous corriger ça ? C’est un peu urgent.", 
+      description: "Impossible d'ajouter un livre. Peux-tu corriger ça ? C’est un peu urgent.",
+      image: "",
       category: "L3", 
-      email: "alexandre@mendo.ai", 
-      resolved: "pending" 
+      email: "alexandre@mendo.ai",
+      status: "show", 
+      resolved: "not detecting" 
     },
     { 
+      id: 20, 
+      title: "What is this ?",
+      description: "There is a black dot showing near every book",
+      image: "",
+      category: "L3", 
+      email: "maxime@gmail.com",
+      status: "show", 
+      resolved: "not detecting" 
+    },
+    { 
+      id: 22, 
+      title: " c'e....st .... le....nt",
+      description: "le site est lent pour moi", 
+      image: "",
+      category: "L3", 
+      email: "yann@gmail.com", 
+      status: "show", 
+      resolved: "not detecting" 
+    },
+    { 
+      id: 18, 
+      title: "Deco ?",
+      description: "voir image", 
+      image: "./images/error1.png",
+      category: "L3", 
+      email: "alexandre@mendo.ai", 
+      status: "show", 
+      resolved: "not detecting" 
+    },
+    {
+      id: 70,
+      title: "Images de couverture manquantes dans le formulaire Book",
+      description: "Le formulaire des livres est censé afficher la partie formulaire pour ajouter les images de couverture des livres, mais à la place, le cadre de base apparaît, comme si aucune image n'était définie. Les utilisateurs s'attendent à voir l'image de chaque livre dans le formulaire.",
+      category: "L3",
+      email: "eray@mendo.ai",
+      status: "show", 
+      resolved: "not detecting"
+    },    
+    {
+      id: 80,
+      title: "Broken Filter?",
+      description: "Some books don't seem to filter into the right category.",
+      category: "L3",
+      email: "charlotte@mycowork.pizza",
+      status: "show", 
+      resolved: "not detected"
+    },    
+    { 
       id: 10, 
-      title: "Recherche ton Auteur",
+      title: "Search Your Author",
       description: "Hey, would be nice to filter using the author with a searchbar. Any chance this could be added? endpoint /api/books/search and with a variable input (text written to search the author name) in the body of the request", 
       category: "Feature Request", 
       email: "ines@mendo.ai", 
+      status: "show", 
       resolved: "pending" 
     },
     { 
@@ -91,7 +148,8 @@ function Achievements() {
       title: "Akinator du Livre",
       description: "Bonjour, je suis la personne qui te regarde actuellement et je pense que ce serait bien de créer un système qui recommande des livres en fonction des préférences des utilisateurs. Tu pourrais mettre en place quelque chose pour cela ? Il faudrait que tu fasses des requêtes à l'API OpenAI dans l'API Readme, et que tu ajoutes le nécessaire dans le backend et le frontend. La demande doit être envoyée à l'endpoint /api/books/bookinator, avec un corps acceptant une variable appelée input. La page correspondante est déjà créée, à toi de jouer !", 
       category: "Feature Request", 
-      email: "Rayane@mendo.ai", 
+      email: "rayane@mendo.ai", 
+      status: "show", 
       resolved: "pending" 
     },
   ]);
@@ -104,16 +162,15 @@ function Achievements() {
   });
   const userStorage = JSON.parse(localStorage.getItem("user"));
 
+  const adminToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzE5MDg2ZDg4YmRlMzE5N2FjMzA2MmEiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MzAzNjg5NTksImV4cCI6NDEwMjQ0NDgwMH0.cWl7DeJipFpMkwDU1MZ6oOPWFLmtSudzTIZ14zhddNw";
+  const userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzFlZDZiNTNiNzg1OTNhNTRjOWFjMTYiLCJpc0FkbWluIjpmYWxzZSwiaWF0IjoxNzMwMDc0NjI2LCJleHAiOjQxMDI0NDQ4MDB9.BxUPmr829R1qDvFPuonpEBFdO1BhnFdQ_Zw4QNXXQT8";
+
   const toggleVisibility = (category) => {
     setVisibility((prev) => ({ ...prev, [category]: !prev[category] }));
   };
 
   useEffect(() => {
     const checkTicketsStatus = async () => {
-      if (!userStorage.token) {
-        setMessage("Le jeton d'utilisateur est manquant. Veuillez vous connecter.");
-        return;
-      }
 
       try {
         const books = await fetchBooks();
@@ -125,7 +182,7 @@ function Achievements() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${userStorage.token}`
+            "Authorization": `Bearer ${userToken}`
           },
           body: JSON.stringify({ input: "Hey Mate" })
         });
@@ -135,11 +192,15 @@ function Achievements() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${userStorage.token}`
+            "Authorization": `Bearer ${userToken}`
           },
           body: JSON.stringify({ input: "Hey Mate" })
         });
         const isSearchResolved = searchResponse.status === 201 | 200;
+
+        const checkBook = await fetch(`/api/books/67190aab88bde3197ac30020`);
+        const canUserCheckIt = checkBook.status === 401;
+
 
         const updatedTickets = tickets.map((ticket) => {
           switch (ticket.id) {
@@ -157,10 +218,8 @@ function Achievements() {
               const uniqueBooks = new Set(books.map((book) => book.title.trim().toLowerCase()));
               const hasDuplicates = uniqueBooks.size !== books.length;
               return { ...ticket, resolved: !hasDuplicates ? "resolved" : "pending" };
-            case 12:
-              return { ...ticket, resolved: "pending" };
-            case 14:
-              return { ...ticket, resolved: "pending" };
+            case 16:
+              return { ...ticket, resolved: !canUserCheckIt ? "resolved" : "pending" };
             case 10:
               return { ...ticket, resolved: isSearchResolved ? "resolved" : "pending" };
             case 13:
@@ -201,12 +260,6 @@ function Achievements() {
         <p className="mt-2 text-red-700">
           🔑 <strong>Identifiant Admin :</strong> support@mendo.ai<br />
           🔒 <strong>Mot de passe :</strong> Ilovemendo31
-        </p>
-        <p className="mt-4 text-gray-700">
-          💬 Si tu veux rendre une version de ton travail pour des points en +, c’est tout simple :<br />
-          1. **Fork** ce projet sur ton propre GitHub.<br />
-          2. Crée un fichier texte nommé <strong>support.txt</strong> dans le dossier <strong>app</strong>.<br />
-          3. Écris dedans les réponses que tu aurais données en tant que support pour chaque ticket. Parle-nous de ta démarche, comment tu as identifié le problème, et ce que tu aurais répondu au client. 📄
         </p>
         <p className="mt-4 text-gray-700">
           🎯 L’objectif, c’est de voir comment tu t'appropries le rôle de support mais surtout de développeur, alors fais au mieux et amuse-toi en même temps. Bonne chance, et on a hâte de découvrir ton travail ! 😊
@@ -267,6 +320,18 @@ function Achievements() {
                     <span className="block text-base font-semibold text-gray-600">
                       Catégorie : {ticket.category} | Email : {ticket.email}
                     </span>
+                    {ticket.image ? (
+                      <div className="mt-2">
+                        <img
+                          alt="ticket image"
+                          src={ticket.image}
+                          className="object-cover w-16 h-16 transition-opacity duration-200 rounded cursor-pointer hover:opacity-80"
+                          onClick={() => window.open(ticket.image, "_blank")}
+                        />
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                   <span
                     className={`text-lg ${
@@ -280,7 +345,7 @@ function Achievements() {
                     {ticket.resolved === "resolved"
                       ? "Résolu"
                       : ticket.resolved === "not detecting"
-                      ? "Non détecté"
+                      ? "Non détectable"
                       : "En attente"}
                   </span>
                 </div>

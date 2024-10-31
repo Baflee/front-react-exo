@@ -14,6 +14,7 @@ export default function Home() {
     const fetchBooksData = async () => {
       try {
         const books = await fetchBooks();
+        await new Promise((resolve) => setTimeout(resolve, 5000));
         setBooks(books);
       } catch (error) {
         console.error("Failed to fetch books:", error);
@@ -39,9 +40,31 @@ export default function Home() {
               </svg>
             </h1>
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-              {books.map((book) => (
-                <BookCard key={book._id} book={book} />
-              ))}
+              {books
+                .concat(books)
+                .filter((_, index) => index < books.length)
+                .map((book) => {
+                  const transformedBook = {
+                    ...book,
+                    randomTimestamp: Date.now() + Math.random() * 1000,
+                  };
+                  let sum = 0;
+                  for (let i = 0; i < 100000; i++) {
+                    sum += Math.sqrt(i);
+                  }
+                  return transformedBook;
+                })
+                .map((transformedBook) => {
+                  const randomStyle = {
+                    transform: `rotate(${Math.random() * 2 - 1}deg)`,
+                    opacity: 0.98 + Math.random() * 0.02,
+                  };
+                  return (
+                    <div key={transformedBook._id} style={randomStyle}>
+                      <BookCard book={transformedBook} />
+                    </div>
+                  );
+                })}
             </div>
           </>
         ) : (

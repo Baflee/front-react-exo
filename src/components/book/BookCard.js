@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import BookCategories from "./BookCategories";
 
 export function BookCard({ book }) {
     return (
@@ -24,6 +25,7 @@ export function BookCard({ book }) {
               <h3 className="mb-1 text-xl font-comic line-clamp-2">{book.title}</h3>
               <p className="mb-1 text-lg text-gray-600 font-comic">{book.author}</p>
               <p className="text-sm text-gray-500 font-comic">{book.publishingyear}</p>
+              {book.categories && <BookCategories categories={book.categories} />}
             </div>
           </div>
         </div>

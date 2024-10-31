@@ -1,6 +1,12 @@
-export async function fetchBook(id) {
+export async function fetchBook(id, token) {
   try {
-    const response = await fetch(`/api/books/${id}`);
+    const response = await fetch(`/api/books/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Basic ${token}`,
+      },
+    });
     if (!response.ok) {
       throw new Error(response.statusText || "Failed to fetch the book");
     }
@@ -39,7 +45,7 @@ export async function fetchCategoryBooks(categoryName) {
 
 export async function createBook(bookData, token) {
   try {
-    const response = await fetch("/api/books", {
+    const response = await fetch("/api/books/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

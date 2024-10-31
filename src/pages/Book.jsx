@@ -5,6 +5,7 @@ import TagsFilter from "../components/TagsFilter";
 import { fetchBook, updateBook, deleteBook } from "../services/bookService";
 import BookForm from "../components/book/BookForm";
 import { fetchCategories } from "../services/categoryService";
+import BookCategories from "../components/book/BookCategories";
 
 export default function Book() {
   const [book, setBook] = useState(null);
@@ -17,7 +18,7 @@ export default function Book() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const bookData = await fetchBook(params.id);
+        const bookData = await fetchBook(params.id, userStorage.token);
         setBook(bookData);
 
         // Fetch categories from the database
@@ -159,14 +160,7 @@ export default function Book() {
 
                 <h2 className="mb-4 text-3xl font-bold text-black font-comic">Tags :</h2>
                 <div className="flex flex-wrap gap-2">
-                  {book.categories && book.categories.map((category, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 text-sm text-white bg-black border-2 border-black rounded-full font-comic"
-                    >
-                      {category.name}
-                    </span>
-                  ))}
+                    {book.categories && <BookCategories categories={book.categories} />}
                 </div>
               </div>
             )}
