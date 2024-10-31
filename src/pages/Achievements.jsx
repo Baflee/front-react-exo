@@ -132,7 +132,7 @@ function Achievements() {
       category: "L3",
       email: "charlotte@mycowork.pizza",
       status: "show", 
-      resolved: "not detected"
+      resolved: "not detecting"
     },    
     { 
       id: 10, 
